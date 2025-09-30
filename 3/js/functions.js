@@ -1,5 +1,5 @@
 const areStringBigger = function(string, targetLen){
-  return !(length(string) >= targetLen);
+  return !(string.length > targetLen);
 };
 // Cтрока короче 20 символов
 areStringBigger('проверяемая строка', 20); // true
@@ -9,7 +9,7 @@ areStringBigger('проверяемая строка', 18); // true
 areStringBigger('проверяемая строка', 10); // false
 
 const areStringPolyndrome = function(string){
-  return string.replaceAll(' ', '').reverse().toLowerCase() === string.replaceAll(' ', '').toLowerCase();
+  return string.replaceAll(' ', '').toLowerCase().split('').reverse().join('') === string.replaceAll(' ', '').toLowerCase();
 };
 // Строка является палиндромом
 areStringPolyndrome('топот'); // true
