@@ -1,7 +1,7 @@
 import {createIdGenerator, getRandomInteger, createRandomIdFromRangeGenerator} from './utils.js';
 import {DESCRIPTIONS, MESSAGES, NAMES} from './dictionary.js';
 
-const POSTS_COUNT = 4;
+const POSTS_COUNT = 11;
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 const generatePhotoId = createIdGenerator();
