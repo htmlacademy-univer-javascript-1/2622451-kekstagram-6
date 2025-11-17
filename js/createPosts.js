@@ -4,8 +4,9 @@ const postsContainer = document.querySelector('.pictures');
 postsContainer.querySelector('.pictures__title').classList.remove('visually-hidden');
 const fragment = document.createDocumentFragment();
 
-randomPosts.forEach(({ url, description, likes, comments }) => {
+randomPosts.forEach(({ url, description, likes, comments }, index) => {
   const pictureElement = document.createElement('a');
+  pictureElement.dataset.index = index;
   pictureElement.href = '#';
   pictureElement.classList.add('picture');
 

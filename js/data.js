@@ -25,5 +25,4 @@ const createPost = () => ({
 });
 
 const randomPosts = Array.from({length: POSTS_COUNT}, createPost);
-
 export {randomPosts};
