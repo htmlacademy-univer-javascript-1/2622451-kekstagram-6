@@ -1,2 +1,2 @@
 import './createPosts.js';
-import './postsEvents.js';
+import './bigPicture.js';

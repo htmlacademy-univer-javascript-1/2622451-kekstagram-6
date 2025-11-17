@@ -1,4 +1,5 @@
-import { createComment } from './bigPictureComments.js';
+import { renderComments } from './bigPictureComments.js';
+import { randomPosts } from './data.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.body;
@@ -9,9 +10,6 @@ const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsList = bigPicture.querySelector('.social__comments');
 const socialCaption = bigPicture.querySelector('.social__caption');
 
-const commentCountBlock = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
-
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
 const fillBigPicture = (photo) => {
@@ -21,12 +19,6 @@ const fillBigPicture = (photo) => {
   socialCaption.textContent = photo.description;
 
   commentsList.innerHTML = '';
-  photo.comments.forEach((comment) => {
-    commentsList.appendChild(createComment(comment));
-  });
-
-  commentCountBlock.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 };
 
 const onDocumentKeydown = (evt) => {
@@ -36,14 +28,14 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function onButtonKeydown (evt) {
+function onButtonKeydown(evt) {
   if (evt.key === 'Enter') {
     evt.preventDefault();
     closeBigPicture();
   }
 }
 
-export function closeBigPicture() {
+function closeBigPicture() {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 
@@ -52,11 +44,24 @@ export function closeBigPicture() {
   closeButton.removeEventListener('keydown', onButtonKeydown);
 }
 
-export function openBigPicture(photo) {
+function openBigPicture(photo) {
   fillBigPicture(photo);
+  renderComments(photo.comments);
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
+
   document.addEventListener('keydown', onDocumentKeydown);
   closeButton.addEventListener('click', closeBigPicture);
   closeButton.addEventListener('keydown', onButtonKeydown);
 }
+
+const container = document.querySelector('.pictures');
+container.addEventListener('click', (evt) => {
+  const thumbnail = evt.target.closest('.picture');
+
+  const id = thumbnail.dataset.index;
+  const photo = randomPosts[id];
+  if (photo) {
+    openBigPicture(photo);
+  }
+});
