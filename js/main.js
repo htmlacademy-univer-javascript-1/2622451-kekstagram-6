@@ -1,5 +1,2 @@
-import {randomPosts} from './data.js';
+import './posts.js';
 
-console.log(
-  randomPosts
-);
