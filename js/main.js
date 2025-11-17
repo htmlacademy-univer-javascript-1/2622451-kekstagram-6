@@ -1,2 +1,2 @@
-import './posts.js';
-
+import './createPosts.js';
+import './postsEvents.js';
