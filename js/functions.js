@@ -20,6 +20,7 @@ areStringPolyndrome('Кекс');  // false
 // Это палиндром
 areStringPolyndrome('Лёша на полке клопа нашёл '); // true
 
+// eslint-disable-next-line no-unused-vars
 const isMeetingInWorkDay = function(dayStart, dayEnd, meetingStart, meetingDuration){
   function toMinutes(timeStr) {
     const [hours, minutes] = timeStr.split(':').map(Number);
@@ -30,5 +31,5 @@ const isMeetingInWorkDay = function(dayStart, dayEnd, meetingStart, meetingDurat
   const startMeetingMin = toMinutes(meetingStart);
   const endMeetingMin = startMeetingMin + meetingDuration;
   return startMeetingMin >= startWorkMin && endMeetingMin <= endWorkMin;
-}
+};
 
