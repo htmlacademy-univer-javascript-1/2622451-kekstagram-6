@@ -1,4 +1,5 @@
 import '../vendor/pristine/pristine.min.js';
+import { initImageEditor, destroyImageEditor } from './imageEditor.js';
 
 const body = document.body;
 const form = document.querySelector('.img-upload__form');
@@ -52,11 +53,15 @@ function openModal() {
 
   removeInitialListeners();
   addModalListeners();
+
+  initImageEditor(form);
 }
 
 function closeModal() {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
+
+  destroyImageEditor();
 
   form.reset();
   fileInput.value = '';
