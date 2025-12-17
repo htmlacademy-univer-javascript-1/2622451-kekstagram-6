@@ -1,4 +1,4 @@
-import '../vendor/pristine/pristine.min.js';
+import '../pristine/pristine.min.js';
 
 export function initValidator(form) {
   const textHashtags = form.querySelector('.text__hashtags');
