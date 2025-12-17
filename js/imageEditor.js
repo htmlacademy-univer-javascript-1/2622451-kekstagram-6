@@ -1,4 +1,4 @@
-import '../vendor/nouislider/nouislider.js';
+import '../nouislider/nouislider.js';
 
 let state = {
   form: null,

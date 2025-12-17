@@ -1,35 +1,36 @@
-import {randomPosts} from './data.js';
-
 const postsContainer = document.querySelector('.pictures');
 postsContainer.querySelector('.pictures__title').classList.remove('visually-hidden');
 const fragment = document.createDocumentFragment();
 
-randomPosts.forEach(({ url, description, likes, comments }, index) => {
-  const pictureElement = document.createElement('a');
-  pictureElement.dataset.index = index;
-  pictureElement.href = '#';
-  pictureElement.classList.add('picture');
+const createPosts = function(posts){
+  posts.forEach(({ comments, description, likes, url}, index) => {
+    const pictureElement = document.createElement('a');
+    pictureElement.dataset.index = index;
+    pictureElement.href = '#';
+    pictureElement.classList.add('picture');
 
-  const img = document.createElement('img');
-  img.classList.add('picture__img');
-  img.src = url;
-  img.alt = description;
+    const img = document.createElement('img');
+    img.classList.add('picture__img');
+    img.src = url;
+    img.alt = description;
 
-  const info = document.createElement('p');
-  info.classList.add('picture__info');
+    const info = document.createElement('p');
+    info.classList.add('picture__info');
 
-  const commentsSpan = document.createElement('span');
-  commentsSpan.classList.add('picture__comments');
-  commentsSpan.textContent = comments.length;
+    const commentsSpan = document.createElement('span');
+    commentsSpan.classList.add('picture__comments');
+    commentsSpan.textContent = comments.length;
 
-  const likesSpan = document.createElement('span');
-  likesSpan.classList.add('picture__likes');
-  likesSpan.textContent = likes;
+    const likesSpan = document.createElement('span');
+    likesSpan.classList.add('picture__likes');
+    likesSpan.textContent = likes;
 
-  info.append(commentsSpan, likesSpan);
-  pictureElement.append(img, info);
+    info.append(commentsSpan, likesSpan);
+    pictureElement.append(img, info);
 
-  fragment.appendChild(pictureElement);
-});
+    fragment.appendChild(pictureElement);
+  });
+  postsContainer.appendChild(fragment);
+};
 
-postsContainer.appendChild(fragment);
+export {createPosts};

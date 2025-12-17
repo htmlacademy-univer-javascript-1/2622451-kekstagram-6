@@ -1,5 +1,4 @@
 import { renderComments } from './bigPictureComments.js';
-import { randomPosts } from './data.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.body;
@@ -12,11 +11,11 @@ const socialCaption = bigPicture.querySelector('.social__caption');
 
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
-const fillBigPicture = (photo) => {
-  bigImg.src = photo.url;
-  likesCount.textContent = photo.likes;
-  commentsCount.textContent = photo.comments.length;
-  socialCaption.textContent = photo.description;
+const fillBigPicture = (photoData) => {
+  bigImg.src = photoData.url;
+  likesCount.textContent = photoData.likes;
+  commentsCount.textContent = photoData.comments.length;
+  socialCaption.textContent = photoData.description;
 
   commentsList.innerHTML = '';
 };
@@ -44,9 +43,9 @@ function closeBigPicture() {
   closeButton.removeEventListener('keydown', onButtonKeydown);
 }
 
-function openBigPicture(photo) {
-  fillBigPicture(photo);
-  renderComments(photo.comments);
+function openBigPicture(photoData) {
+  fillBigPicture(photoData);
+  renderComments(photoData.comments);
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
 
@@ -55,13 +54,19 @@ function openBigPicture(photo) {
   closeButton.addEventListener('keydown', onButtonKeydown);
 }
 
-const container = document.querySelector('.pictures');
-container.addEventListener('click', (evt) => {
-  const thumbnail = evt.target.closest('.picture');
+const initiateBigPicture = function(data){
+  const container = document.querySelector('.pictures');
+  container.addEventListener('click', (evt) => {
+    const thumbnail = evt.target.closest('.picture');
 
-  const id = thumbnail.dataset.index;
-  const photo = randomPosts[id];
-  if (photo) {
-    openBigPicture(photo);
-  }
-});
+    if (!thumbnail) {return;}
+
+    const id = thumbnail.dataset.index;
+    const photoData = data[id];
+    if (photoData) {
+      openBigPicture(photoData);
+    }
+  });
+};
+
+export { initiateBigPicture };
