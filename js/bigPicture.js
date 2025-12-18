@@ -27,14 +27,14 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function onButtonKeydown(evt) {
+const onButtonKeydown = (evt) => {
   if (evt.key === 'Enter') {
     evt.preventDefault();
     closeBigPicture();
   }
-}
+};
 
-function closeBigPicture() {
+function closeBigPicture(){
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 
@@ -43,26 +43,31 @@ function closeBigPicture() {
   closeButton.removeEventListener('keydown', onButtonKeydown);
 }
 
-function openBigPicture(photoData) {
+const openBigPicture = (photoData) => {
   fillBigPicture(photoData);
   renderComments(photoData.comments);
+
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
   closeButton.addEventListener('click', closeBigPicture);
   closeButton.addEventListener('keydown', onButtonKeydown);
-}
+};
 
-const initiateBigPicture = function(data){
+const initiateBigPicture = (getCurrentPosts) => {
   const container = document.querySelector('.pictures');
+
   container.addEventListener('click', (evt) => {
     const thumbnail = evt.target.closest('.picture');
+    if (!thumbnail) {
+      return;
+    }
 
-    if (!thumbnail) {return;}
+    const index = Number(thumbnail.dataset.index);
+    const currentPosts = getCurrentPosts();
+    const photoData = currentPosts[index];
 
-    const id = thumbnail.dataset.index;
-    const photoData = data[id];
     if (photoData) {
       openBigPicture(photoData);
     }
