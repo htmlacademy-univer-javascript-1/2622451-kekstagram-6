@@ -3,6 +3,7 @@ import { initiateBigPicture } from './bigPicture.js';
 
 const postsContainer = document.querySelector('.pictures');
 const filtersContainer = document.querySelector('.img-filters');
+
 let originalPosts = [];
 let currentPosts = [];
 
@@ -51,6 +52,8 @@ const renderPosts = (posts) => {
 
 const debouncedRenderPosts = debounce(renderPosts, 500);
 
+const COUNT_OF_FILTER = 10;
+
 const filterDefault = (posts) => posts.slice();
 
 const filterDiscussed = (posts) =>
@@ -58,7 +61,7 @@ const filterDiscussed = (posts) =>
     .slice()
     .sort((a, b) => b.comments.length - a.comments.length);
 
-const getRandomPosts = (posts, count = 10) => {
+const getRandomPosts = (posts, count) => {
   const shuffled = posts.slice().sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 };
@@ -90,7 +93,7 @@ document.querySelector('#filter-default')
 document.querySelector('#filter-random')
   .addEventListener('click', (evt) => {
     setActiveFilter(evt.target);
-    debouncedRenderPosts(getRandomPosts(originalPosts));
+    debouncedRenderPosts(getRandomPosts(originalPosts, COUNT_OF_FILTER));
   });
 
 document.querySelector('#filter-discussed')
