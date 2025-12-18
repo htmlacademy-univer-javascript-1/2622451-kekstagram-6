@@ -50,7 +50,6 @@ export function initiateForm(){
   function onFileInputChange() {
     const file = fileInput.files && fileInput.files[0];
     if (!file || !file.type.startsWith('image/')) {return;}
-
     setPreviewFromFile(file);
     openModal();
   }
