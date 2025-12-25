@@ -1179,6 +1179,35 @@ main {
   transform: translateX(-50%);
 }
 
+.data-error {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.data-error__content {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+}
+
+.data-error__title {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.data-error__text {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
 
 /**
  * Экраны ошибки и успеха загрузки изображения

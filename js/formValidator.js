@@ -12,7 +12,7 @@ export function initValidator(form) {
     errorTextClass: 'img-upload__error'
   });
 
-  const TAG_REGEX = /^#[a-zA-Z0-9]{1,19}$/;
+  const TAG_REGEX = /^(?:#[\p{L}\p{N}]{1,19})(?:\s+#[\p{L}\p{N}]{1,19})*$/u;
 
   pristine.addValidator(
     textHashtags,

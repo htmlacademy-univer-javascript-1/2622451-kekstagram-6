@@ -1,6 +1,11 @@
 const getData = () => fetch(
   'https://29.javascript.htmlacademy.pro/kekstagram/data')
-  .then((response) => response.json());
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Ошибка загрузки данных');
+    }
+    return response.json();
+  });
 
 const sendData = (body) => fetch(
   'https://29.javascript.htmlacademy.pro/kekstagram',
@@ -18,3 +23,4 @@ const sendData = (body) => fetch(
   });
 
 export {getData, sendData};
+

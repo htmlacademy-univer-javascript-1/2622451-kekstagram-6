@@ -1,4 +1,6 @@
 import { renderComments } from './bigPictureComments.js';
+import { isEnterKey, isEscapeKey } from './utils.js';
+import { clearComments } from './bigPictureComments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.body;
@@ -21,20 +23,21 @@ const fillBigPicture = (photoData) => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
 };
 
 const onButtonKeydown = (evt) => {
-  if (evt.key === 'Enter') {
+  if (isEnterKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
 };
 
 function closeBigPicture(){
+  clearComments();
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 

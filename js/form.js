@@ -1,5 +1,6 @@
 import { initValidator } from './formValidator.js';
 import { initUploader } from './formUploader.js';
+import { isEscapeKey } from './utils.js';
 import { initImageEditor, destroyImageEditor } from './imageEditor.js';
 
 export function initiateForm(){
@@ -43,6 +44,7 @@ export function initiateForm(){
     destroyImageEditor();
     form.reset();
     fileInput.value = '';
+    form.querySelectorAll('.pristine-error').forEach((el) => el.remove());
     removeModalListeners();
     addInitialListeners();
   }
@@ -55,8 +57,8 @@ export function initiateForm(){
   }
 
   function onCloseButtonClick() { closeModal(); }
-  function onDocumentKeydown(evt) { if (evt.key === 'Escape') {closeModal();} }
-  function stopEsc(evt) { if (evt.key === 'Escape') {evt.stopPropagation();} }
+  function onDocumentKeydown(evt) { if (isEscapeKey(evt)) {closeModal();} }
+  function stopEsc(evt) { if (isEscapeKey(evt)) {evt.stopPropagation();} }
 
   function addModalListeners() {
     closeButton.addEventListener('click', onCloseButtonClick);
@@ -100,7 +102,7 @@ export function initiateForm(){
       successButton.removeEventListener('click', onButtonClick);
     }
 
-    function onEsc(evt) { if (evt.key === 'Escape') {removeMessage();} }
+    function onEsc(evt) { if (isEscapeKey(evt)) {removeMessage();} }
     function onOutsideClick(evt) { if (evt.target === successNode) {removeMessage();} }
     function onButtonClick() { removeMessage(); }
 
@@ -127,7 +129,7 @@ export function initiateForm(){
       errorButton.removeEventListener('click', onButtonClick);
     }
 
-    function onEsc(evt) { if (evt.key === 'Escape') {removeMessage();} }
+    function onEsc(evt) { if (isEscapeKey(evt)) {removeMessage();} }
     function onOutsideClick(evt) { if (evt.target === errorNode) {removeMessage();} }
     function onButtonClick() { removeMessage(); }
 
