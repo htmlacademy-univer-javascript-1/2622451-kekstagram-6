@@ -1,5 +1,7 @@
 import '../pristine/pristine.min.js';
 
+const TAG_REGEX = /^(?:#[\p{L}\p{N}]{1,19})(?:\s+#[\p{L}\p{N}]{1,19})*$/u;
+
 export function initValidator(form) {
   const textHashtags = form.querySelector('.text__hashtags');
   const textDescription = form.querySelector('.text__description');
@@ -11,8 +13,6 @@ export function initValidator(form) {
     errorTextParent: 'img-upload__field-wrapper',
     errorTextClass: 'img-upload__error'
   });
-
-  const TAG_REGEX = /^#[a-zA-Z0-9]{1,19}$/;
 
   pristine.addValidator(
     textHashtags,

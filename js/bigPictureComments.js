@@ -4,39 +4,74 @@ const loadMoreButton = document.querySelector('.comments-loader');
 
 const COMMENTS_BATCH_SIZE = 5;
 
-export function renderComments(comments) {
+let loadedCount = 0;
+let currentComments = [];
+let onLoadMoreClick = null;
 
-  let loadedCount = 0;
+function loadNextBatch() {
+  const nextBatch = currentComments.slice(
+    loadedCount,
+    loadedCount + COMMENTS_BATCH_SIZE
+  );
+
+  nextBatch.forEach((comment) => {
+    const li = document.createElement('li');
+    li.classList.add('social__comment');
+
+    const img = document.createElement('img');
+    img.classList.add('social__picture');
+    img.src = comment.avatar;
+    img.alt = comment.name;
+    img.width = 35;
+    img.height = 35;
+
+    const text = document.createElement('p');
+    text.classList.add('social__text');
+    text.textContent = comment.message;
+
+    li.append(img, text);
+
+    commentsList.appendChild(li);
+  });
+
+  loadedCount += nextBatch.length;
+
+  commentCount.innerHTML = `
+    <span class="social__comment-shown-count">${loadedCount}</span> из
+    <span class="social__comment-total-count">${currentComments.length}</span>
+    комментариев
+  `;
+
+  loadMoreButton.classList.toggle(
+    'hidden',
+    loadedCount >= currentComments.length
+  );
+}
+
+export function renderComments(comments) {
+  currentComments = comments;
+  loadedCount = 0;
 
   commentsList.innerHTML = '';
+  loadMoreButton.classList.remove('hidden');
 
-  function loadNextBatch() {
-    loadMoreButton.classList.remove('hidden');
-
-    const nextBatch = comments.slice(loadedCount, loadedCount + COMMENTS_BATCH_SIZE);
-
-    nextBatch.forEach((comment) => {
-      const li = document.createElement('li');
-      li.classList.add('social__comment');
-
-      li.innerHTML = `
-        <img class="social__picture" src="${comment.avatar}" alt="${comment.name}" width="35" height="35">
-        <p class="social__text">${comment.message}</p>
-      `;
-
-      commentsList.appendChild(li);
-    });
-
-    loadedCount += nextBatch.length;
-
-    commentCount.textContent = `${loadedCount} из ${comments.length} комментариев`;
-
-    if (loadedCount >= comments.length) {
-      loadMoreButton.classList.add('hidden');
-    }
+  if (onLoadMoreClick) {
+    loadMoreButton.removeEventListener('click', onLoadMoreClick);
   }
 
-  loadNextBatch();
+  onLoadMoreClick = loadNextBatch;
+  loadMoreButton.addEventListener('click', onLoadMoreClick);
 
-  loadMoreButton.addEventListener('click', loadNextBatch);
+  loadNextBatch();
 }
+
+export function clearComments() {
+  if (onLoadMoreClick) {
+    loadMoreButton.removeEventListener('click', onLoadMoreClick);
+    onLoadMoreClick = null;
+  }
+
+  commentsList.innerHTML = '';
+  loadedCount = 0;
+}
+

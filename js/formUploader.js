@@ -1,5 +1,6 @@
 import { sendData } from './api.js';
 
+
 export function initUploader(form, pristine, openModal, closeModal, showSuccessMessage, showErrorMessage) {
   const submitButton = form.querySelector('.img-upload__submit');
 

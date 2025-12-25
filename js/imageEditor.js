@@ -1,5 +1,10 @@
 import '../nouislider/nouislider.js';
 
+
+const SCALE_STEP = 25;
+const SCALE_MIN = 25;
+const SCALE_MAX = 100;
+
 let state = {
   form: null,
   preview: null,
@@ -29,10 +34,6 @@ export function initImageEditor(form) {
   state.effectLevel = form.querySelector('.img-upload__effect-level');
   state.effectLevelSlider = form.querySelector('.effect-level__slider');
   state.effectLevelValue = form.querySelector('.effect-level__value');
-
-  const SCALE_STEP = 25;
-  const SCALE_MIN = 25;
-  const SCALE_MAX = 100;
 
   function applyScale() {
     const value = parseInt(state.scaleValue.value, 10);

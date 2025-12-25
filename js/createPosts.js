@@ -1,8 +1,12 @@
 import { debounce } from './utils.js';
 import { initiateBigPicture } from './bigPicture.js';
 
+
 const postsContainer = document.querySelector('.pictures');
 const filtersContainer = document.querySelector('.img-filters');
+
+const FILTER_COUNT = 10;
+const RENDER_DELAY = 500;
 
 let originalPosts = [];
 let currentPosts = [];
@@ -11,7 +15,7 @@ const clearPosts = () => {
   postsContainer.querySelectorAll('.picture').forEach((el) => el.remove());
 };
 
-const createPosts = function(posts){
+const createPosts = (posts) => {
   postsContainer.querySelector('.pictures__title').classList.remove('visually-hidden');
   const fragment = document.createDocumentFragment();
   posts.forEach(({ comments, description, likes, url}, index) => {
@@ -50,9 +54,7 @@ const renderPosts = (posts) => {
   createPosts(posts);
 };
 
-const debouncedRenderPosts = debounce(renderPosts, 500);
-
-const COUNT_OF_FILTER = 10;
+const debouncedRenderPosts = debounce(renderPosts, RENDER_DELAY);
 
 const filterDefault = (posts) => posts.slice();
 
@@ -93,7 +95,7 @@ document.querySelector('#filter-default')
 document.querySelector('#filter-random')
   .addEventListener('click', (evt) => {
     setActiveFilter(evt.target);
-    debouncedRenderPosts(getRandomPosts(originalPosts, COUNT_OF_FILTER));
+    debouncedRenderPosts(getRandomPosts(originalPosts, FILTER_COUNT));
   });
 
 document.querySelector('#filter-discussed')

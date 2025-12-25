@@ -1,14 +1,15 @@
 import { renderComments } from './bigPictureComments.js';
+import { isEnterKey, isEscapeKey } from './utils.js';
+import { clearComments } from './bigPictureComments.js';
+
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.body;
-
 const bigImg = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsList = bigPicture.querySelector('.social__comments');
 const socialCaption = bigPicture.querySelector('.social__caption');
-
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
 const fillBigPicture = (photoData) => {
@@ -21,26 +22,27 @@ const fillBigPicture = (photoData) => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
 };
 
-const onButtonKeydown = (evt) => {
-  if (evt.key === 'Enter') {
+const onCloseButtonKeydown = (evt) => {
+  if (isEnterKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
 };
 
 function closeBigPicture(){
+  clearComments();
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
   closeButton.removeEventListener('click', closeBigPicture);
-  closeButton.removeEventListener('keydown', onButtonKeydown);
+  closeButton.removeEventListener('keydown', onCloseButtonKeydown);
 }
 
 const openBigPicture = (photoData) => {
@@ -52,7 +54,7 @@ const openBigPicture = (photoData) => {
 
   document.addEventListener('keydown', onDocumentKeydown);
   closeButton.addEventListener('click', closeBigPicture);
-  closeButton.addEventListener('keydown', onButtonKeydown);
+  closeButton.addEventListener('keydown', onCloseButtonKeydown);
 };
 
 const initiateBigPicture = (getCurrentPosts) => {
