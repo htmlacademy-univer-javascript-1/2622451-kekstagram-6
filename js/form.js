@@ -3,6 +3,7 @@ import { initUploader } from './formUploader.js';
 import { isEscapeKey } from './utils.js';
 import { initImageEditor, destroyImageEditor } from './imageEditor.js';
 
+
 export function initiateForm(){
   const body = document.body;
   const form = document.querySelector('.img-upload__form');

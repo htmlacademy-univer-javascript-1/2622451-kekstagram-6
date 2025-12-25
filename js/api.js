@@ -1,26 +1,26 @@
-const getData = () => fetch(
-  'https://29.javascript.htmlacademy.pro/kekstagram/data')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Ошибка загрузки данных');
-    }
-    return response.json();
-  });
+const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
+const SEND_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
-const sendData = (body) => fetch(
-  'https://29.javascript.htmlacademy.pro/kekstagram',
-  {
+const checkResponse = (response) => {
+  if (!response.ok) {
+    throw new Error('Ошибка сети');
+  }
+  return response;
+};
+
+const getData = () =>
+  fetch(DATA_URL)
+    .then(checkResponse)
+    .then((response) => response.json());
+
+const sendData = (body) =>
+  fetch(SEND_URL, {
     method: 'POST',
     body,
   })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error();
-    }
-  })
-  .catch(() => {
-    throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
-  });
+    .then(checkResponse)
+    .catch(() => {
+      throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+    });
 
-export {getData, sendData};
-
+export { getData, sendData };

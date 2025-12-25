@@ -1,26 +1,12 @@
 const isEscapeKey = (evt) => evt.key === 'Escape';
-
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, delay = 500) => {
   let timeoutId;
-
-  return (...rest) => {
+  return (...args) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    timeoutId = setTimeout(() => callback(...args), delay);
   };
-}
+};
 
-function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
-
-  return (...rest) => {
-    const now = new Date();
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-}
-
-export {isEscapeKey, isEnterKey, debounce, throttle};
+export { isEscapeKey, isEnterKey, debounce };

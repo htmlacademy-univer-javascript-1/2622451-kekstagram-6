@@ -18,10 +18,18 @@ function loadNextBatch() {
     const li = document.createElement('li');
     li.classList.add('social__comment');
 
-    li.innerHTML = `
-      <img class="social__picture" src="${comment.avatar}" alt="${comment.name}" width="35" height="35">
-      <p class="social__text">${comment.message}</p>
-    `;
+    const img = document.createElement('img');
+    img.classList.add('social__picture');
+    img.src = comment.avatar;
+    img.alt = comment.name;
+    img.width = 35;
+    img.height = 35;
+
+    const text = document.createElement('p');
+    text.classList.add('social__text');
+    text.textContent = comment.message;
+
+    li.append(img, text);
 
     commentsList.appendChild(li);
   });
