@@ -1,6 +1,7 @@
 import '../pristine/pristine.min.js';
 
 const TAG_REGEX = /^(?:#[\p{L}\p{N}]{1,19})(?:\s+#[\p{L}\p{N}]{1,19})*$/u;
+const MAX_LENGTH_OF_COMMENT = 140;
 
 export function initValidator(form) {
   const textHashtags = form.querySelector('.text__hashtags');
@@ -45,7 +46,7 @@ export function initValidator(form) {
 
   pristine.addValidator(
     textDescription,
-    (value) => value.length <= 140,
+    (value) => value.length <= MAX_LENGTH_OF_COMMENT,
     'Комментарий не должен превышать 140 символов'
   );
 
