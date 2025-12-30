@@ -2,15 +2,19 @@ const showLoadError = () => {
   const errorContainer = document.createElement('section');
   errorContainer.classList.add('data-error');
 
-  errorContainer.innerHTML = `
-    <div class="data-error__content">
-      <h2 class="data-error__title">Не удалось загрузить данные</h2>
-      <p class="data-error__text">
-        Попробуйте обновить страницу или зайти позже
-      </p>
-    </div>
-  `;
+  const content = document.createElement('div');
+  content.classList.add('data-error__content');
 
+  const title = document.createElement('h2');
+  title.classList.add('data-error__title');
+  title.textContent = 'Не удалось загрузить данные';
+
+  const text = document.createElement('p');
+  text.classList.add('data-error__text');
+  text.textContent = 'Попробуйте обновить страницу или зайти позже';
+
+  content.append(title, text);
+  errorContainer.append(content);
   document.body.append(errorContainer);
 };
 

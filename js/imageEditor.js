@@ -5,6 +5,15 @@ const SCALE_STEP = 25;
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 
+const EFFECTS = {
+  none: { filter: () => 'none', min: 0, max: 100, start: 100, step: 1 },
+  chrome: { filter: (v) => `grayscale(${v})`, min: 0, max: 1, start: 1, step: 0.1 },
+  sepia: { filter: (v) => `sepia(${v})`, min: 0, max: 1, start: 1, step: 0.1 },
+  marvin: { filter: (v) => `invert(${v}%)`, min: 0, max: 100, start: 100, step: 1 },
+  phobos: { filter: (v) => `blur(${v}px)`, min: 0, max: 3, start: 3, step: 0.1 },
+  heat: { filter: (v) => `brightness(${v})`, min: 1, max: 3, start: 3, step: 0.1 }
+};
+
 let state = {
   form: null,
   preview: null,
@@ -58,15 +67,6 @@ export function initImageEditor(form) {
 
   state.scaleSmaller.addEventListener('click', state.onScaleSmaller);
   state.scaleBigger.addEventListener('click', state.onScaleBigger);
-
-  const EFFECTS = {
-    none: { filter: () => 'none', min: 0, max: 100, start: 100, step: 1 },
-    chrome: { filter: (v) => `grayscale(${v})`, min: 0, max: 1, start: 1, step: 0.1 },
-    sepia: { filter: (v) => `sepia(${v})`, min: 0, max: 1, start: 1, step: 0.1 },
-    marvin: { filter: (v) => `invert(${v}%)`, min: 0, max: 100, start: 100, step: 1 },
-    phobos: { filter: (v) => `blur(${v}px)`, min: 0, max: 3, start: 3, step: 0.1 },
-    heat: { filter: (v) => `brightness(${v})`, min: 1, max: 3, start: 3, step: 0.1 }
-  };
 
   noUiSlider.create(state.effectLevelSlider, {
     range: { min: 0, max: 100 },

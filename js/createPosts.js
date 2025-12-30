@@ -2,11 +2,11 @@ import { debounce } from './utils.js';
 import { initiateBigPicture } from './bigPicture.js';
 
 
-const postsContainer = document.querySelector('.pictures');
-const filtersContainer = document.querySelector('.img-filters');
-
 const FILTER_COUNT = 10;
 const RENDER_DELAY = 500;
+
+const postsContainer = document.querySelector('.pictures');
+const filtersContainer = document.querySelector('.img-filters');
 
 let originalPosts = [];
 let currentPosts = [];

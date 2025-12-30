@@ -59,20 +59,20 @@ export function initiateForm(){
 
   function onCloseButtonClick() { closeModal(); }
   function onDocumentKeydown(evt) { if (isEscapeKey(evt)) {closeModal();} }
-  function stopEsc(evt) { if (isEscapeKey(evt)) {evt.stopPropagation();} }
+  function stopEscPropagation(evt) { if (isEscapeKey(evt)) {evt.stopPropagation();} }
 
   function addModalListeners() {
     closeButton.addEventListener('click', onCloseButtonClick);
     document.addEventListener('keydown', onDocumentKeydown);
-    textHashtags.addEventListener('keydown', stopEsc);
-    textDescription.addEventListener('keydown', stopEsc);
+    textHashtags.addEventListener('keydown', stopEscPropagation);
+    textDescription.addEventListener('keydown', stopEscPropagation);
   }
 
   function removeModalListeners() {
     closeButton.removeEventListener('click', onCloseButtonClick);
     document.removeEventListener('keydown', onDocumentKeydown);
-    textHashtags.removeEventListener('keydown', stopEsc);
-    textDescription.removeEventListener('keydown', stopEsc);
+    textHashtags.removeEventListener('keydown', stopEscPropagation);
+    textDescription.removeEventListener('keydown', stopEscPropagation);
   }
 
   function addInitialListeners() { fileInput.addEventListener('change', onFileInputChange); }
@@ -98,26 +98,23 @@ export function initiateForm(){
 
     function removeMessage() {
       successNode.remove();
-      document.removeEventListener('keydown', onEsc);
+      document.removeEventListener('keydown', onEscKeydown);
       successNode.removeEventListener('click', onOutsideClick);
       successButton.removeEventListener('click', onButtonClick);
     }
 
-    function onEsc(evt) { if (isEscapeKey(evt)) {removeMessage();} }
+    function onEscKeydown(evt) { if (isEscapeKey(evt)) {removeMessage();} }
     function onOutsideClick(evt) { if (evt.target === successNode) {removeMessage();} }
     function onButtonClick() { removeMessage(); }
 
     successButton.addEventListener('click', onButtonClick);
-    document.addEventListener('keydown', onEsc);
+    document.addEventListener('keydown', onEscKeydown);
     successNode.addEventListener('click', onOutsideClick);
   }
 
-  function showErrorMessage(message) {
+  function showErrorMessage() {
     const errorNode = createMessageFromTemplate('#error', '.error');
     if (!errorNode) {return;}
-
-    const title = errorNode.querySelector('.error__title');
-    if (title && message) {title.textContent = message;}
 
     document.body.append(errorNode);
 
@@ -125,17 +122,17 @@ export function initiateForm(){
 
     function removeMessage() {
       errorNode.remove();
-      document.removeEventListener('keydown', onEsc);
+      document.removeEventListener('keydown', onEscKeydown);
       errorNode.removeEventListener('click', onOutsideClick);
       errorButton.removeEventListener('click', onButtonClick);
     }
 
-    function onEsc(evt) { if (isEscapeKey(evt)) {removeMessage();} }
+    function onEscKeydown(evt) { if (isEscapeKey(evt)) {removeMessage();} }
     function onOutsideClick(evt) { if (evt.target === errorNode) {removeMessage();} }
     function onButtonClick() { removeMessage(); }
 
     errorButton.addEventListener('click', onButtonClick);
-    document.addEventListener('keydown', onEsc);
+    document.addEventListener('keydown', onEscKeydown);
     errorNode.addEventListener('click', onOutsideClick);
   }
 

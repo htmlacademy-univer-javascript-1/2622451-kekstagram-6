@@ -27,10 +27,8 @@ export function initUploader(form, pristine, openModal, closeModal, showSuccessM
         closeModal();
         showSuccessMessage();
       })
-      .catch((err) => {
-        closeModal();
-        const message = err && err.message ? err.message : 'Ошибка при отправке. Попробуйте ещё раз.';
-        showErrorMessage(message);
+      .catch(() => {
+        showErrorMessage();
       })
       .finally(() => {
         unblockSubmitButton();
